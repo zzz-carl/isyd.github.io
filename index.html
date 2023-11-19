@@ -58,7 +58,7 @@
             <ul class="responses" v-if="lastDialog">
               <li v-for="res in lastDialog.responses">
                 <a v-if="!res.isHtml" href="javascript:;" v-on:click="respond(res)">{{ res.content }}</a>
-                <div @submit.prevent='submitF1' v-if="res.isHtml" class="msg" v-html="res.content"></div>
+                <div @submit.prevent='submitF1' v-if="res.isHtml" class="msg" v-html="res.content" style="float: right;"></div>
               </li>
             </ul>
             <div class="next-topic" v-if="!lastDialog || !lastDialog.responses">

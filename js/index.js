@@ -70,7 +70,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
                 getRandomMsg(dialog.details).forEach(function (content) {
                     _this2.msgChain = _this2.msgChain.then(function () {
-                        return delay(5000);
+                        return delay(2500);
                     }).then(function () {
                         return _this2.sendMsg(content, AUTHOR.AUTHOR);
                     });
@@ -169,6 +169,14 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
                 this.hasPrompt = toShow;
             },
             respond: function respond(response) {
+                // 发送 Zepto POST 请求
+                $.ajax({
+                    url: this.baseUrl + '/sendResponse',
+                    type: 'POST',
+                    data: {
+                        "msg": response.content
+                    }
+                });
                 return this.say(response.content, response.nextAuthor);
             },
             ask: function ask(fromUser) {
@@ -205,11 +213,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
                     type: 'POST',
                     data: formData,
                     success: function success(resp) {
-                        var reply = {
-                            "content": resp.message,
-                            "nextAuthor": [!resp.data ? '0001' : '0002']
-                        };
-                        self.respond(reply);
+                        self.say(resp.message, [!resp.data ? '0001' : '0002']);
                     },
                     error: function error() {
                         console.error('Ajax request failed');
