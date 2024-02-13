@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="/static/love.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <title>love</title>
+    <style>
+      slider {
+        width: 100%;
+        overflow: hidden;
+      }
+
+      .slider-container {
+        width: 100%;
+        height: 100vh;
+        overflow-y: scroll;
+      }
+
+      .slider-container img {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-width: 500px; /* 设置电脑端图片的最大宽度 */
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+
+  <div class="slider">
+    <div class="slider-container">
+      <img src="./images/2.png" alt="Image 1" />
+      <img src="./images/3.png" alt="Image 2" />
+      <img src="./images/4-1.png" alt="Image 3" />
+      <img src="./images/4-2.png" alt="Image 4" />
+      <img src="./images/5.png" alt="Image 5" />
+      <img src="./images/6.png" alt="Image 6" />
+    </div>
+  </div>
+  <script>
+    // 等待页面加载完成
+    window.addEventListener("load", function () {
+      // 获取滑动容器元素
+      var sliderContainer = document.querySelector(".slider-container");
+
+      // 监听滑动容器的滚动事件，以判断当前活动图片的索引
+      var currentImageIndex = 0;
+      sliderContainer.addEventListener("scroll", function () {
+        currentImageIndex = Math.round(
+          sliderContainer.scrollTop / sliderContainer.clientHeight
+        );
+      });
+
+      // 监听窗口大小变化事件，以重新计算滑动容器的高度和当前活动图片的位置
+      window.addEventListener("resize", function () {
+        sliderContainer.style.height = window.innerHeight + "px";
+        sliderContainer.scrollTop =
+          currentImageIndex * sliderContainer.clientHeight;
+      });
+
+      // 初始化滑动容器的高度和当前活动图片的位置
+      sliderContainer.style.height = window.innerHeight + "px";
+      sliderContainer.scrollTop =
+        currentImageIndex * sliderContainer.clientHeight;
+    });
+  </script>
+</html>
